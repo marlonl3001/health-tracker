@@ -16,7 +16,7 @@ fun NavGraphBuilder.authGraph(navController: NavHostController) {
                         inclusive = true
                     }
                 }
-            }
+            },
         )
     }
 }

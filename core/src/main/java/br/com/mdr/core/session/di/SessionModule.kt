@@ -10,10 +10,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class AuthModule {
+abstract class SessionModule {
     @Binds
     @Singleton
-    abstract fun bindSessionManager(
-        impl: SessionManagerImpl
-    ): SessionManager
+    abstract fun bindSessionManager(impl: SessionManagerImpl): SessionManager
 }

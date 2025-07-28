@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 fun HomeScreen() {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text("Bem-vindo!", style = MaterialTheme.typography.headlineMedium)
     }

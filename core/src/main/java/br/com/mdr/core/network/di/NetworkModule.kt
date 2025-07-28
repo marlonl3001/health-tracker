@@ -15,10 +15,11 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+private const val TIMEOUT_VALUE = 15L
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
     @Provides
     @Singleton
     fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit =
@@ -30,23 +31,24 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthInterceptor(sessionManager: SessionManager): AuthInterceptor =
-        AuthInterceptor(sessionManager)
+    fun provideAuthInterceptor(sessionManager: SessionManager): AuthInterceptor = AuthInterceptor(sessionManager)
 
     @Provides
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+        HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
 
     @Provides
     @Singleton
     fun providesOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-        authInterceptor: AuthInterceptor
+        authInterceptor: AuthInterceptor,
     ): OkHttpClient =
         OkHttpClient.Builder()
-            .readTimeout(15, TimeUnit.SECONDS)
-            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(TIMEOUT_VALUE, TimeUnit.SECONDS)
+            .connectTimeout(TIMEOUT_VALUE, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
             .addInterceptor(authInterceptor)
             .build()

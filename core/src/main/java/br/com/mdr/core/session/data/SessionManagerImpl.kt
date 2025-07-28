@@ -9,27 +9,28 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.Date
 import javax.inject.Inject
 
+@Suppress("SwallowedException", "TooGenericExceptionCaught")
 class SessionManagerImpl @Inject constructor(
-    @ApplicationContext private val context: Context
-): SessionManager {
-
+    @ApplicationContext private val context: Context,
+) : SessionManager {
     companion object {
         private const val PREF_NAME = "user_session"
         private const val TOKEN_KEY = "auth_token"
     }
 
     private val prefs by lazy {
-        val masterKey = MasterKey
-            .Builder(context)
-            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-            .build()
+        val masterKey =
+            MasterKey
+                .Builder(context)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build()
 
         EncryptedSharedPreferences.create(
             context,
             PREF_NAME,
             masterKey,
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
         )
     }
 

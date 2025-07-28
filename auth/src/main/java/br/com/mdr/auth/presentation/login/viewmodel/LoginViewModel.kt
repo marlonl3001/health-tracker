@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.mdr.auth.domain.usecase.LoginUseCase
-import br.com.mdr.auth.domain.usecase.SignupUseCase
 import br.com.mdr.auth.presentation.login.state.LoginEffect
 import br.com.mdr.auth.presentation.login.state.LoginEvent
 import br.com.mdr.auth.presentation.login.state.LoginUiState
@@ -17,11 +16,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class LoginViewModel
+@Inject
+constructor(
     private val sessionManager: SessionManager,
     private val loginUseCase: LoginUseCase,
-    private val signupUseCase: SignupUseCase
-): ViewModel() {
+) : ViewModel() {
     var uiState by mutableStateOf(LoginUiState())
         private set
 
