@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="br.com.mdr.healthtracker" />
+                  <option name="mobileSdkAppId" value="1:272276773083:android:23566f513f97749d3c14fe" />
+                  <option name="projectId" value="health-tracker-2c0d6" />
+                  <option name="projectNumber" value="272276773083" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
