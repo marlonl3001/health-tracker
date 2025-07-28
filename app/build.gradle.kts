@@ -7,6 +7,22 @@ plugins {
     alias(libs.plugins.googleServices)
 }
 
+detekt {
+    config = files("$rootDir/config/detekt/detekt.yml")
+    buildUponDefaultConfig = true
+    allRules = false
+    autoCorrect = true
+}
+
+ktlint {
+    android.set(true)
+    ignoreFailures.set(false)
+    reporters {
+        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
+        reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
+    }
+}
+
 android {
     namespace = "br.com.mdr.healthtracker"
     compileSdk = 35
@@ -26,8 +42,9 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -42,6 +59,9 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.3"
+    }
+    lint {
+        disable += "NullSafeMutableLiveData"
     }
 }
 

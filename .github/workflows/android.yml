@@ -15,16 +15,16 @@ jobs:
       GRADLE_OPTS: -Dorg.gradle.daemon=false
 
     steps:
-      - name: 🔄 Checkout do código
+      - name: 🔄 Code checkout
         uses: actions/checkout@v4
 
-      - name: ☕ Setup JDK
+      - name: ☕ JDK Setup
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: ${{ env.JAVA_VERSION }}
 
-      - name: 🧱 Cache do Gradle
+      - name: 🧱 Gradle Cache
         uses: actions/cache@v3
         with:
           path: |
@@ -33,20 +33,26 @@ jobs:
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: gradle-${{ runner.os }}
 
-      - name: 🔧 Permissão para o Gradle
+      - name: 🔧 Gradle permission
         run: chmod +x ./gradlew
 
-      - name: 🛠️ Build do projeto
+      - name: 🛠️ Build project
         run: ./gradlew assembleRelease
 
-      - name: ✅ Testes unitários
+      - name: Run Ktlint
+        run: ./gradlew ktlintCheck
+
+      - name: Run Detekt
+        run: ./gradlew detekt
+
+      - name: ✅ Unit Tests
         run: ./gradlew test
 
-      - name: 🔐 Decodificar Keystore
+      - name: 🔐 Keystore Decode
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > health-keystore.jks
 
-      - name: 🚀 Deploy com Fastlane
+      - name: 🚀 Deploy with Fastlane
         run: |
           bundle install
           bundle exec fastlane android deploy_firebase

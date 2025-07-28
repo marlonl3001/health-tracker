@@ -20,7 +20,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     @Inject
     lateinit var sessionManager: SessionManager
 
@@ -28,17 +27,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val startDestination = runBlocking {
-            val token = sessionManager.getToken()
-            if (token == null) {
-                AUTH_ROUTE
-            } else if (sessionManager.isTokenExpired(token)) {
-                sessionManager.clearSession()
-                AUTH_ROUTE
-            } else {
-                "home"
+        val startDestination =
+            runBlocking {
+                val token = sessionManager.getToken()
+                if (token == null) {
+                    AUTH_ROUTE
+                } else if (sessionManager.isTokenExpired(token)) {
+                    sessionManager.clearSession()
+                    AUTH_ROUTE
+                } else {
+                    "home"
+                }
             }
-        }
         setContent {
             HealthTrackerTheme {
                 MainNavigation(startDestination)
@@ -53,7 +53,7 @@ fun MainNavigation(startDestination: String) {
 
     NavHost(
         navController = navController,
-        startDestination = startDestination
+        startDestination = startDestination,
     ) {
         authGraph(navController)
         homeGraph()
