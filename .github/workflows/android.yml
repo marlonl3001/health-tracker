@@ -57,8 +57,8 @@ jobs:
         with:
           ruby-version: '3.1' # ou a versão que preferir
 
-#      - name: 🚀 Install Fastlane
-#        run: sudo gem install fastlane
+      - name: 📦 Install dependencies
+        run: bundle install
 
       - name: 🚀 Deploy with Fastlane
         run: bundle exec fastlane android deploy_firebase
