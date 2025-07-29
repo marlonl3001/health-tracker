@@ -57,11 +57,11 @@ jobs:
         with:
           ruby-version: '3.1' # ou a versão que preferir
 
-      - name: 🚀 Install Fastlane
-        run: sudo gem install fastlane
+#      - name: 🚀 Install Fastlane
+#        run: sudo gem install fastlane
 
       - name: 🚀 Deploy with Fastlane
-        run: fastlane android deploy_firebase
+        run: bundle exec fastlane android deploy_firebase
         env:
           FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           KEYSTORE_PATH: health-keystore.jks
