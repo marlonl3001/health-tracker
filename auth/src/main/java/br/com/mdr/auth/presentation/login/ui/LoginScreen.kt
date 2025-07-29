@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
-    onLoginSuccess: () -> Unit
+    onLoginSuccess: () -> Unit,
 ) {
     val uiState = viewModel.uiState
     val context = LocalContext.current
@@ -43,29 +43,32 @@ fun LoginScreen(
         Modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         OutlinedTextField(
             value = uiState.email,
             onValueChange = { viewModel.onEvent(LoginEvent.OnEmailChange(it)) },
             label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         OutlinedTextField(
             value = uiState.password,
             onValueChange = { viewModel.onEvent(LoginEvent.OnPasswordChange(it)) },
             label = { Text("Password") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
 
         Button(
             onClick = { viewModel.onEvent(LoginEvent.OnLoginClick) },
             modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
-            enabled = !uiState.isLoading
+            enabled = !uiState.isLoading,
         ) {
-            if (uiState.isLoading) CircularProgressIndicator(Modifier.size(20.dp))
-            else Text("Login")
+            if (uiState.isLoading) {
+                CircularProgressIndicator(Modifier.size(20.dp))
+            } else {
+                Text("Login")
+            }
         }
     }
 }

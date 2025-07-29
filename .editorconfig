@@ -1,0 +1,17 @@
+    root = true
+
+    [*.{kt,kts}]
+    indent_style = space
+    indent_size = 4
+    continuation_indent_size = 4
+    insert_final_newline = true
+    charset = utf-8
+    max_line_length = 140
+    end_of_line = lf
+    disabled_rules=import-ordering
+    ktlint_standard_no-wildcard-imports = disabled
+	ktlint_function_naming_ignore_when_annotated_with = Composable
+
+    # Ignorar magic numbers em arquivos de tema
+    [**/theme/**.kt]
+    ktlint_standard:magic-number = disabled
