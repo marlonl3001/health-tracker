@@ -1,9 +1,5 @@
 default_platform(:android)
 
-plugins_path = File.join(File.dirname(__FILE__), 'Pluginfile')
-eval_gemfile(plugins_path) if File.exist?(plugins_path)
-
-
 platform :android do
   desc "Deploy para Firebase App Distribution"
   lane :deploy_firebase do
